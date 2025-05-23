@@ -1,0 +1,17 @@
+{% extends "AuthApp/base.html" %}
+
+{% block title %}Donor Dashboard{% endblock %}
+
+{% block content %}
+    <h1>Welcome, Donor {{ user.email }}!</h1>
+    <p>This is your dashboard.</p>
+    <p>Your user type is: {{ user.user_type }}</p>
+    {% if user.donor %}
+        <p>Full Name: {{ user.donor.full_name }}</p>
+        <p>Location: {{ user.donor.location }}</p>
+        <p>Preferred Donor Type: {{ user.donor.get_preferred_donor_type_display }}</p>
+        <p>Donation Preference: {{ user.donor.get_donation_preference_display }}</p>
+    {% else %}
+        <p>Donor profile not found.</p>
+    {% endif %}
+{% endblock %}
