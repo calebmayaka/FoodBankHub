@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}FoodBank Auth{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'AuthApp/css/style.css' %}">
+</head>
+<body>
+    <nav>
+        {% if user.is_authenticated %}
+            <a href="{% url 'AuthApp:logout' %}">Logout</a>
+            {% if user.user_type == 'DONOR' %}
+                <a href="{% url 'AuthApp:donor_dashboard' %}">Dashboard</a>
+            {% elif user.user_type == 'FOODBANK' %}
+                <a href="{% url 'AuthApp:foodbank_dashboard' %}">Dashboard</a>
+            {% elif user.user_type == 'RECIPIENT' %}
+                <a href="{% url 'AuthApp:recipient_dashboard' %}">Dashboard</a>
+            {% endif %}
+        {% else %}
+            <a href="{% url 'AuthApp:login' %}">Login</a>
+            <a href="{% url 'AuthApp:donor_register' %}">Register as Donor</a>
+            <a href="{% url 'AuthApp:foodbank_register' %}">Register as Foodbank</a>
+            <a href="{% url 'AuthApp:recipient_register' %}">Register as Recipient</a>
+        {% endif %}
+    </nav>
+    <hr>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% block content %}{% endblock %}
+    <script src="{% static 'AuthApp/js/main.js' %}"></script>
+</body>
+</html>

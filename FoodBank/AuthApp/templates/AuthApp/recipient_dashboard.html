@@ -1,0 +1,17 @@
+{% extends "AuthApp/base.html" %}
+
+{% block title %}Recipient Dashboard{% endblock %}
+
+{% block content %}
+    <h1>Welcome, Recipient {{ user.recipient.full_name_or_organization|default:user.email }}!</h1>
+    <p>This is your dashboard.</p>
+    <p>Your user type is: {{ user.user_type }}</p>
+    {% if user.recipient %}
+        <p>Phone Number: {{ user.recipient.phone_number }}</p>
+        <p>Location: {{ user.recipient.location }}</p>
+        <p>Category: {{ user.recipient.category }}</p>
+        <p>Donation Preference Status: {{ user.recipient.donation_preference_status }}</p>
+    {% else %}
+        <p>Recipient profile not found.</p>
+    {% endif %}
+{% endblock %}

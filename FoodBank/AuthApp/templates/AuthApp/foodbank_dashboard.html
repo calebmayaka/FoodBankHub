@@ -1,0 +1,20 @@
+{% extends "AuthApp/base.html" %}
+
+{% block title %}Foodbank Dashboard{% endblock %}
+
+{% block content %}
+    <h1>Welcome, Foodbank {{ user.foodbank.foodbank_name|default:user.email }}!</h1>
+    <p>This is your dashboard.</p>
+    <p>Your user type is: {{ user.user_type }}</p>
+    {% if user.foodbank %}
+        <p>Contact Person: {{ user.foodbank.contact_person }}</p>
+        <p>Phone Number: {{ user.foodbank.phone_number }}</p>
+        <p>Accepts Subsistence Donations: {{ user.foodbank.accepts_subsistence_donations|yesno:"Yes,No" }}</p>
+        {% if user.foodbank.picture %}
+            <p>Picture:</p>
+            <img src="{{ user.foodbank.picture.url }}" alt="{{ user.foodbank.foodbank_name }} picture" style="max-width: 200px; max-height: 200px;">
+        {% endif %}
+    {% else %}
+        <p>Foodbank profile not found.</p>
+    {% endif %}
+{% endblock %}
